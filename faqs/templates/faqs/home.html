@@ -1,0 +1,67 @@
+{% extends 'faqs/base.html' %}
+
+{% block title %}AI FAQ Explorer | Advanced AI Concepts{% endblock %}
+
+{% block content %}
+<section class="hero-grid">
+  <article class="hero-card glass-card">
+    <span class="eyebrow">AI-powered FAQ website</span>
+    <h1>Ask advanced AI questions and get clear answers instantly.</h1>
+    <p>
+      This Django site combines curated FAQ content with semantic matching and a neural reranking layer
+      so users can explore advanced artificial intelligence concepts without digging through documentation.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="{% url 'chat-page' %}">Start chatting</a>
+      <a class="btn btn-secondary" href="{% url 'browse-faqs' %}">Browse FAQ library</a>
+    </div>
+    <div class="stat-row">
+      <div><strong>{{ total_faqs }}</strong><span>FAQs</span></div>
+      <div><strong>{{ categories|length }}</strong><span>Categories</span></div>
+      <div><strong>Hybrid</strong><span>Embedding + ANN reranker</span></div>
+    </div>
+  </article>
+
+  <aside class="hero-side glass-card">
+    <h2>What the chatbot covers</h2>
+    <ul class="feature-list">
+      <li>Neural networks, CNNs, and RNNs</li>
+      <li>Transformers, attention, and LLMs</li>
+      <li>Embeddings, cosine similarity, and RAG</li>
+      <li>Fine-tuning, overfitting, and evaluation</li>
+    </ul>
+  </aside>
+</section>
+
+<section class="section-block">
+  <div class="section-head">
+    <h2>Browse categories</h2>
+    <a href="{% url 'browse-faqs' %}">Open full library</a>
+  </div>
+  <div class="card-grid four-up">
+    {% for category in categories %}
+    <article class="info-card">
+      <span class="pill">{{ category.faq_count }} FAQs</span>
+      <h3>{{ category.name }}</h3>
+      <p>{{ category.description }}</p>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section-block">
+  <div class="section-head">
+    <h2>Featured answers</h2>
+    <a href="{% url 'chat-page' %}">Ask a question</a>
+  </div>
+  <div class="card-grid three-up">
+    {% for faq in featured_faqs %}
+    <a class="faq-card" href="{% url 'faq-detail' faq.id %}">
+      <span class="pill accent">{{ faq.category.name }}</span>
+      <h3>{{ faq.question }}</h3>
+      <p>{{ faq.answer|truncatechars:150 }}</p>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

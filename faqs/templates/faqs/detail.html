@@ -1,0 +1,16 @@
+{% extends 'faqs/base.html' %}
+
+{% block title %}{{ faq.question }} | AI FAQ Explorer{% endblock %}
+
+{% block content %}
+<section class="detail-card glass-card">
+  <span class="pill accent">{{ faq.category.name }}</span>
+  <h1>{{ faq.question }}</h1>
+  <p>{{ faq.answer }}</p>
+  <div class="detail-meta">
+    <span>Intent: {{ faq.intent_label|default:"general" }}</span>
+    <span>Published: {{ faq.is_published }}</span>
+  </div>
+  <a class="btn btn-secondary" href="{% url 'chat-page' %}">Ask a similar question</a>
+</section>
+{% endblock %}

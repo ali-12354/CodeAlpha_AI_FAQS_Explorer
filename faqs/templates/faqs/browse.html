@@ -1,0 +1,29 @@
+{% extends 'faqs/base.html' %}
+
+{% block title %}Browse FAQs | AI FAQ Explorer{% endblock %}
+
+{% block content %}
+<section class="browse-header glass-card">
+  <span class="eyebrow">Knowledge base</span>
+  <h1>Explore the advanced AI FAQ library</h1>
+  <p>Every answer can be edited in Django admin, then reused by the chatbot matcher.</p>
+</section>
+
+<section class="section-block browse-grid">
+  {% for category in categories %}
+  <article class="info-card">
+    <span class="pill accent">{{ category.faqs.count }} FAQs</span>
+    <h2>{{ category.name }}</h2>
+    <p>{{ category.description }}</p>
+    <div class="faq-list">
+      {% for faq in category.faqs.all %}
+      <details class="faq-item" {% if forloop.first %}open{% endif %}>
+        <summary>{{ faq.question }}</summary>
+        <p>{{ faq.answer }}</p>
+      </details>
+      {% endfor %}
+    </div>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}

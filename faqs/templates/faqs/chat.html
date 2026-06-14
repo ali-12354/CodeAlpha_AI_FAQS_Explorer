@@ -1,0 +1,47 @@
+{% extends 'faqs/base.html' %}
+
+{% block title %}Chat | AI FAQ Explorer{% endblock %}
+
+{% block content %}
+<section class="chat-layout">
+  <article class="chat-panel glass-card">
+    <div class="section-head compact">
+      <div>
+        <span class="eyebrow">AI chat assistant</span>
+        <h1>Ask about advanced AI concepts</h1>
+      </div>
+      <span class="status-pill">Live FAQ matcher</span>
+    </div>
+
+    <div id="chat-feed" class="chat-feed" aria-live="polite">
+      <div class="message bot">
+        <strong>Assistant</strong>
+        <p>Ask me anything about transformers, embeddings, CNNs, RNNs, fine-tuning, or RAG.</p>
+      </div>
+    </div>
+
+    <form id="chat-form" class="chat-form" method="post" action="{% url 'ask-api' %}">
+      {% csrf_token %}
+      <textarea id="chat-input" name="question" rows="3" placeholder="Example: What is attention in a transformer?"></textarea>
+      <div class="chat-actions">
+        <button class="btn btn-primary" type="submit">Ask question</button>
+        <button class="btn btn-secondary" type="button" data-fill-sample>Try sample prompt</button>
+      </div>
+    </form>
+  </article>
+
+  <aside class="sidebar-panel glass-card">
+    <h2>Suggested questions</h2>
+    <div class="suggestion-list">
+      {% for question in suggested_questions %}
+      <button type="button" class="suggestion-chip" data-suggestion="{{ question|escape }}">{{ question }}</button>
+      {% endfor %}
+    </div>
+
+    <div class="tip-box">
+      <h3>How matching works</h3>
+      <p>The site normalizes your question, compares it semantically against the FAQ set, and then reranks candidates with a neural classifier.</p>
+    </div>
+  </aside>
+</section>
+{% endblock %}

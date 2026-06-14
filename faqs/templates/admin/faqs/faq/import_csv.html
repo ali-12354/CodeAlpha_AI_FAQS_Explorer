@@ -1,0 +1,22 @@
+{% extends "admin/base_site.html" %}
+
+{% block title %}Import FAQs from CSV{% endblock %}
+
+{% block content %}
+<div id="content-main">
+  <h1>Import FAQs from CSV</h1>
+  <p>Use columns: question, answer, category, category_slug, category_description, intent_label, is_published, sort_order.</p>
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-row">
+      <label for="csv_file">CSV file</label>
+      <input type="file" name="csv_file" id="csv_file" accept=".csv,text/csv">
+    </div>
+    <div style="margin-top: 16px;">
+      <button type="submit" class="default">Import CSV</button>
+      <a href=".." class="button">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

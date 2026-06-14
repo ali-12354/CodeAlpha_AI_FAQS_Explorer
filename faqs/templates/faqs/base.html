@@ -1,0 +1,38 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}AI FAQ Explorer{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'faqs/css/styles.css' %}">
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+  <header class="site-header">
+    <a class="brand" href="{% url 'home' %}">
+      <span class="brand-badge">AI</span>
+      <span>
+        <strong>FAQ Explorer</strong>
+        <small>Advanced AI concepts, explained clearly</small>
+      </span>
+    </a>
+    <nav class="site-nav">
+      <a href="{% url 'home' %}">Home</a>
+      <a href="{% url 'chat-page' %}">Chat</a>
+      <a href="{% url 'browse-faqs' %}">Browse</a>
+      <a href="/admin/">Admin</a>
+    </nav>
+  </header>
+
+  <main class="page-shell">
+    {% block content %}{% endblock %}
+  </main>
+
+  <script src="{% static 'faqs/js/chat.js' %}"></script>
+</body>
+</html>
